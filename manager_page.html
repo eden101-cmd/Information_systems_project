@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMGsp Support - Managing Tasks</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+        /* Your existing styles */
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #150707;
+            background-attachment: fixed; /* Add this line */
+            background-repeat: no-repeat;
+        }
+
+
+        #backgroundBefore{
+            background-image: url('https://raw.githubusercontent.com/eden101-cmd/Information_systems_project/main/intel.jpg');
+            background-size: cover; /* Adjust as needed */
+            height: 70px; /* Adjust as needed */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #backgroundLogin {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1000px;
+            background: url('https://raw.githubusercontent.com/eden101-cmd/Information_systems_project/main/Background.jpg') no-repeat center top fixed;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 2; /* Set a higher z-index than #backgroundLogin */
+        }
+        h3 {
+            color: white; /* Set the color you prefer for titles */
+        }
+
+        form {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        label, input, select, textarea, button, body {
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        
+        .filter-container {
+            text-align: left; /* Align the filter container to the left */
+            margin-bottom: 20px;
+        }
+
+        .filter-list {
+            width: 10%; /* Adjust the width as needed */
+            display: inline-block; /* Display the filter list inline */
+            margin-right: 20px; /* Adjust the margin to control its position */
+        }
+
+        label[for="filter"] {
+            display: inline-block; /* Display the label inline */
+            margin-right: 10px; /* Adjust the margin to control its position */
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 60%; /* Set the width of the table */
+            margin: auto; /* Center the table */
+            background-color: white; /* Add a background color for better visibility */
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd; /* Add a border between rows */
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        /* Add new styles for the mission container and input */
+        .mission-container {
+            margin-top: 80px;
+        }
+
+        .mission-container label, .mission-container input, .mission-container button {
+            margin-right: 10px;
+        }
+
+        .mission-container input {
+            width: 200px;
+        }
+
+        /* Add new styles for the mission container and input */
+        .load-container {
+            margin-top: 80px;
+        }
+
+        .status-busy {
+            background-color: #e2400e;
+            color: white;
+        }
+
+        .status-unbusy {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .load-container label, .load-container input, .load-container button {
+            margin-right: 10px;
+        }
+
+        .load-container input {
+            width: 200px;
+        }
+
+        .button-container {
+            margin-left: 50px;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            width: 150px; /* Set a fixed width for all buttons */
+            height: 60px;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 20px; /* Adjust the margin to control the space between buttons */
+            margin-bottom: 10px;
+        }
+
+        /* Circular window styles */
+        .circle-window {
+            width: 150px;
+            height: 100px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            bottom: 370px;
+            right: 1050px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .circle-number {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .circle-label {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .status-container {
+            margin-top: 50px;
+        }
+
+        select.status-select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #555;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="backgroundBefore"></div>
+    <h1>TMGsp Support System</h1>
+    <!-- Circular window for unassigned tasks -->
+    <div class="circle-window">
+        <span class="circle-number">7</span>
+        <span class="circle-label">Unassigned Tasks</span>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <img src="https://raw.githubusercontent.com/eden101-cmd/Information_systems_project/main/user.png" width="30" height="25" style="position: relative; top: -20px; right: -1000px;"">
+        <span style="position: relative; top: -22px; right: -1005px;">User Name: Oz Cohen</span>
+    </div>
+    <div id="backgroundLogin"></div>
+    <table>
+        <thead>
+            <tr>
+                <th>Assigned Student</th>
+                <th>Tasks that Haven't Started Yet</th>
+                <th>Tasks In Progress</th>
+                <th>Total Tasks</th>
+                <th>Load Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Marina</td>
+                <td class="update-load">2</td>
+                <td>5</td>
+                <td>7</td>
+                <td class ="status-busy" class="update-load" data-student="Marina"><select id="statusSelect" class="status-select">
+                    <option value="busy">Busy</option>
+                    <option value="unbusy">Unbusy</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Alon</td>
+                <td class="update-load">3</td>
+                <td>2</td>
+                <td>5</td>
+                <td class ="status-unbusy" class="update-load" data-student="Alon"><select id="statusSelect" class="status-select">
+                    <option value="unbusy">Unbusy</option>
+                    <option value="busy">Busy</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Hadas</td>
+                <td class="update-load">2</td>
+                <td>3</td>
+                <td>6</td>
+                <td class ="status-busy" class="update-load" data-student="Hadas"><select id="statusSelect" class="status-select">
+                    <option value="busy">Busy</option>
+                    <option value="unbusy">Unbusy</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Ron</td>
+                <td class="update-load">2</td>
+                <td>1</td>
+                <td>3</td>
+                <td class ="status-unbusy" class="update-load" data-student="Ron"><select id="statusSelect" class="status-select">
+                    <option value="unbusy">Unbusy</option>
+                    <option value="busy">Busy</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Naomi</td>
+                <td class="update-load">3</td>
+                <td>2</td>
+                <td>5</td>
+                <td class ="status-unbusy" class="update-load" data-student="Neomi"><select id="statusSelect" class="status-select">
+                    <option value="unbusy">Unbusy</option>
+                    <option value="busy">Busy</option>
+                </select></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="button-container">
+        <button id="addAssignmentBtn">Save</button>
+    </div>
+
+    <div class="button-container">
+        <button id="analyticalReportsBtn">Analytical Reports</button>
+        <button id="reportsServerBtn">Reports Server</button>
+        <button id="tasksServerBtn">Tasks Server</button>
+        <button id="addAssignmentBtn">Add Assignment</button>
+    </div>
+
+    <script>
+        // Add an event listener to all status-select elements
+        document.querySelectorAll('.status-select').forEach(item => {
+            item.addEventListener('change', event => {
+                const selectedOption = event.target.value;
+                const parentCell = event.target.parentElement;
+                if (selectedOption === 'unbusy') {
+                    parentCell.classList.remove('status-busy');
+                    parentCell.classList.add('status-unbusy');
+                } else {
+                    parentCell.classList.remove('status-unbusy');
+                    parentCell.classList.add('status-busy');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

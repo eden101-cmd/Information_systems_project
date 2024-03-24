@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TMGsp Support - Adding Request</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 16px;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: #150707;
+            background-attachment: fixed; /* Add this line */
+            background-repeat: no-repeat;
+        }
+
+
+        #backgroundBefore{
+            background-image: url('https://raw.githubusercontent.com/eden101-cmd/Information_systems_project/main/intel.jpg');
+            background-size: cover; /* Adjust as needed */
+            height: 70px; /* Adjust as needed */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #backgroundLogin {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1000px;
+            background: url('https://raw.githubusercontent.com/eden101-cmd/Information_systems_project/main/Background.jpg') no-repeat center top fixed;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        h1 {
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2; /* Set a higher z-index than #backgroundLogin */
+        }
+
+        form {
+            margin: 40px auto; /* Adjust the margin-top value here */
+            margin-top: 60px ;
+            width: 60%;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+            background-color: rgba(255, 255, 255, 0.5);
+            text-align: left;
+            border: 2px solid #007BFF; /* Added blue border */
+        }
+
+        h2 {
+            color: black;
+            margin-bottom: 40px;
+        }
+
+        label,
+        input,
+        select,
+        textarea {
+            margin-bottom: 10px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 12px;
+            border: 1px solid #150707;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #150707;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: calc(50% - 50px); /* Center the button */
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap; /* Fix for smaller screens */
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .form-row .form-group {
+            width: 48%;
+            margin-bottom: 10px; /* Adjust spacing */
+        }
+
+        .form-group.checkbox-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align items to the start (left) */
+        }
+
+        .form-group.checkbox-group label {
+            margin-bottom: 5px;
+        }
+
+        .large-space {
+            width: 100%;
+        }
+
+        .form-row .form-group.large-space .request-text,
+        .form-row .form-group.large-space .relevant-text {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .form-group.checkbox-group .updating-file-label {
+        margin-top: 5px;
+        margin-left: 5px;
+        height: 30px; /* Adjust the height as needed */
+    }
+
+    .form-group.large-space #requestText {
+    width: 210%; /* Adjust the width as needed */
+    height: 200px;
+    }
+
+    label span {
+    color: red; /* Change the color of the asterisk */
+    margin-left: 4px; /* Add some space between the label and the asterisk */
+    }
+    </style>
+</head>
+
+<body>
+    <div id="backgroundBefore"></div>
+    <h1>TMGsp Support System</h1>
+    <div style="display: flex; align-items: center;">
+        <img src="https://raw.githubusercontent.com/eden101-cmd/Information_systems_project/main/user.png" width="30" height="25" style="position: relative; top: 10px; right: -1000px;">
+        <span style="position: relative; top: 8px; right: -1005px;">User Name: Dana Bergman</span>
+    </div>
+    <div id="backgroundLogin"></div>
+    <form>
+        <h2>Add Request</h2>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="name" title="Your full name">Name<span>*</span>:</label>
+                <input type="text" id="name" name="name" placeholder="Type your name" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="email" title="Your email address">Email<span>*</span>:</label>
+                <input type="email" id="email" name="email" placeholder="Type your email" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class="form-group">
+                <label for="startDate" title="The start date of your request">Start Date<span>*</span>:</label>
+                <input type="date" id="startDate" name="startDate" value="<?php echo date('Y-m-d'); ?>" required>
+            </div>
+        
+            <div class="form-group">
+                <label for="endDate" title="The due date of your request">Due Date<span>*</span>:</label>
+                <input type="date" id="endDate" name="endDate" required>
+            </div>
+        </div>
+        
+        <div class="form-row">
+            <div class=".form-group.checkbox-group .updating-file-labe">
+                <label style="margin-left: 45px;"  for="updatingFile">Update an Existing Report:</label>
+                <input type="checkbox" id="updatingFile" name="updatingFile">
+            </div>
+            <div class="form-group large-space">
+                <label for="newReportName">Request a New Report:</label>
+                <input type="text" id="newReportName" name="newReportName" placeholder="Type new report name">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="whichReport">Which Report:</label>
+                <select id="whichReport" name="whichReport" disabled>
+                    <option value="1">Finance Report</option>
+                    <option value="2">TRDD WG Report</option>
+                    <option value="3">Reuse MBT Report</option>
+                    <option value="4">HR Report</option>
+                    <option value="5">Business Report</option>
+                </select>
+            </div>
+            <div class="form-group large-space">
+                <label for="fileUpload">Upload Business Process FIle</label>
+                <input type="file" id="fileUpload" name="fileUpload">
+            </div>
+        </div>
+    
+        <div class="form-row">
+            <div class="form-group large-space">
+                <label for="requestText">Request Text:</label>
+                <textarea id="requestText" name="requestText" rows="6" placeholder="Type your request text"></textarea>
+            </div>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        // JavaScript to set the default value of Start Date to the current date
+        document.getElementById('startDate').valueAsDate = new Date();
+        // JavaScript to enable/disable the Which Report dropdown based on the checkbox state
+        const updatingFileCheckbox = document.getElementById('updatingFile');
+        const whichReportDropdown = document.getElementById('whichReport');
+
+        updatingFileCheckbox.addEventListener('change', function () {
+            whichReportDropdown.disabled = !this.checked;
+        });
+    </script>
+</body>
+
+</html>
